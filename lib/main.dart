@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:research_project/ar-scene.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          primaryColor: const Color.fromARGB(255, 230, 25, 11),
           fontFamily: 'Kanit',
           scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255)),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -36,11 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 230, 25, 11),
+        shadowColor: const Color.fromRGBO(224, 24, 24, 0),
+        backgroundColor: Theme.of(context).primaryColor,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: Container(
-        margin: const EdgeInsets.all(30.0),
+        margin: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       letterSpacing: 0.5),
                 )),
             const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
               child: Text(
                 "don't know what to do? No problem!\nWith our new technologie you are able to do every exercise right.",
                 textAlign: TextAlign.start,
@@ -77,10 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 230, 25, 11),
+                  backgroundColor: Theme.of(context).primaryColor,
                 ),
                 onPressed: () {
-                  debugPrint('Elevated Button');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext context) {
+                      return const ArScene();
+                    }),
+                  );
                 },
                 child: const Text('Start the AR-scene'),
               ),
