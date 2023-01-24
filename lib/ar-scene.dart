@@ -133,3 +133,64 @@ class _ArSceneState extends State<ArScene> {
   //   }
   // }
 }
+
+
+// example of loading 2 objects based on different images
+// import 'package:arkit_plugin/arkit_plugin.dart';
+// import 'package:flutter/material.dart';
+
+// class ARScene extends StatefulWidget {
+//   @override
+//   _ARSceneState createState() => _ARSceneState();
+// }
+
+// class _ARSceneState extends State<ARScene> {
+//   ARKitController arKitController;
+//   ARKitReferenceNode model1;
+//   ARKitReferenceNode model2;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     model1 = ARKitReferenceNode(
+//       url: 'assets/model1.scn',
+//     );
+//     model2 = ARKitReferenceNode(
+//       url: 'assets/model2.scn',
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: ARKitSceneView(
+//         detectionImagesGroupName: 'image',
+//         onARKitViewCreated: onARKitViewCreated,
+//       ),
+//     );
+//   }
+
+//   void onARKitViewCreated(ARKitController arKitController) {
+//     this.arKitController = arKitController;
+//     final config = ARKitImageTrackingConfiguration();
+//     config.detectionImages = [
+//         ARKitReferenceImage(image: Image.asset('assets/image1.jpeg'), name: 'image1'),
+//         ARKitReferenceImage(image: Image.asset('assets/image2.jpeg'), name: 'image2')
+//     ];
+//     arKitController.setup(config);
+//     arKitController.onNodeTapped = (name) {
+//       if(name == 'image1') {
+//         arKitController.add(model1);
+//       }else if(name == 'image2') {
+//         arKitController.add(model2);
+//       }
+//     };
+//   }
+
+//   @override
+//   void dispose() {
+//     arKitController?.dispose();
+//     super.dispose();
+//   }
+// }
+
