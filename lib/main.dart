@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(255, 230, 25, 11),
           fontFamily: 'Kanit',
           scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255)),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Gym AR'),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:research_project/more-info.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:arkit_plugin/arkit_plugin.dart';
@@ -19,7 +20,11 @@ class _ArSceneState extends State<ArScene> {
   late ARKitController arkitController;
   ARKitReferenceNode? boxNode;
   Timer? timer;
-  bool anchorWasFound = false;
+
+  // models
+  String model = '';
+  String model1 = 'models.scnassets/Incline_bench_press_model.usdz';
+  String model2 = 'models.scnassets/Heavy_leg_press.usdz';
 
   @override
   void dispose() {
@@ -50,6 +55,7 @@ class _ArSceneState extends State<ArScene> {
     this.arkitController.addCoachingOverlay(CoachingOverlayGoal.anyPlane);
     this.arkitController.onNodeTap = (nodes) => onNodeTapHandler();
     this.arkitController.onAddNodeForAnchor = onAnchorWasFound;
+
     // this.arkitController.onNodePinch = (pinch) => _onPinchHandler(pinch);
     // this.arkitController.onNodePan = (pan) => _onPanHandler(pan);
     // this.arkitController.onNodeRotation =
@@ -58,25 +64,46 @@ class _ArSceneState extends State<ArScene> {
   }
 
   void onAnchorWasFound(ARKitAnchor anchor) {
-    if (anchor is ARKitImageAnchor) {
-      setState(() => anchorWasFound = true);
+    debugPrint(anchor.identifier);
 
-      final node = ARKitReferenceNode(
-          url: 'models.scnassets/Incline_bench_press_model.usdz',
-          // scale: Vector3.all(0.005),
-          position: vector.Vector3(-0.2, -0.3, -0.5),
-          eulerAngles: vector.Vector3(0.3, 0, 0),
-          light: ARKitLight(
-            type: ARKitLightType.directional,
-          ));
-      arkitController.add(node);
-
-      timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
-        // final old = node.position;
-        // final position = vector.Vector3(old.x + 0.01, old.y, old.z);
-        // node.position = position;
-      });
+    if (anchor.identifier == '2D1E6C78-601E-54A5-FC37-2FE5A0340185') {
+      model = 'models.scnassets/Incline_bench_press_model.usdz';
+      arkitController.removeAnchor(model2);
+    } else if (anchor.identifier == '88A34468-C336-0652-FA6A-3504FF1F12F8') {
+      model = 'models.scnassets/Heavy_leg_press.usdz';
+      arkitController.removeAnchor(model1);
     }
+    setState(() {
+      final node = ARKitReferenceNode(
+        url: model,
+        position: vector.Vector3(-0.2, -0.3, -0.5),
+        eulerAngles: vector.Vector3(0.3, 0, 0),
+        light: ARKitLight(
+          type: ARKitLightType.directional,
+        ),
+      );
+
+      arkitController.add(node);
+      arkitController.remove(model1);
+      debugPrint(model);
+    });
+
+    // final node2 = ARKitReferenceNode(
+    //   url: model2,
+    //   position: vector.Vector3(-0.2, -0.3, -0.5),
+    //   eulerAngles: vector.Vector3(0.3, 0, 0),
+    //   light: ARKitLight(
+    //     type: ARKitLightType.directional,
+    //   ),
+    // );
+
+    // if (anchor.identifier == '2D1E6C78-601E-54A5-FC37-2FE5A0340185') {
+    //   arkitController.add(node);
+    //   arkitController.removeAnchor(node2.url);
+    // } else if (anchor.identifier == '88A34468-C336-0652-FA6A-3504FF1F12F8') {
+    //   arkitController.add(node2);
+    //   arkitController.removeAnchor(node.url);
+    // }
   }
 
 // Add 3D model to AR
