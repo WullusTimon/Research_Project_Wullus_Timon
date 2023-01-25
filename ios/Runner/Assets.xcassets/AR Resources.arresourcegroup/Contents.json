@@ -5,6 +5,9 @@
   },
   "resources" : [
     {
+      "filename" : "heavy-leg-press.arreferenceimage"
+    },
+    {
       "filename" : "olympic-incline-bench-press.arreferenceimage"
     }
   ]
