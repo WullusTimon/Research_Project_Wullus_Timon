@@ -35,20 +35,21 @@ class _ArSceneState extends State<ArScene> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: const Text('GYM AR'),
-        backgroundColor: const Color.fromRGBO(224, 24, 24, 1),
-        shadowColor: const Color.fromRGBO(224, 24, 24, 0),
-      ),
-      body: ARKitSceneView(
-        detectionImagesGroupName: 'AR Resources',
-        enableTapRecognizer: true,
-        enablePinchRecognizer: true,
-        enablePanRecognizer: true,
-        enableRotationRecognizer: true,
-        // debug: true,
-        onARKitViewCreated: onARKitViewCreated,
-      ));
+        appBar: AppBar(
+          title: const Text('GYM AR'),
+          backgroundColor: const Color.fromRGBO(224, 24, 24, 1),
+          shadowColor: const Color.fromRGBO(224, 24, 24, 0),
+        ),
+        body: ARKitSceneView(
+          detectionImagesGroupName: 'AR Resources',
+          enableTapRecognizer: true,
+          enablePinchRecognizer: true,
+          enablePanRecognizer: true,
+          enableRotationRecognizer: true,
+          debug: true,
+          onARKitViewCreated: onARKitViewCreated,
+        ),
+      );
 
   void onARKitViewCreated(ARKitController arkitController) {
     this.arkitController = arkitController;
@@ -56,26 +57,33 @@ class _ArSceneState extends State<ArScene> {
     this.arkitController.onNodeTap = (nodes) => onNodeTapHandler();
     this.arkitController.onAddNodeForAnchor = onAnchorWasFound;
 
-    // this.arkitController.onNodePinch = (pinch) => _onPinchHandler(pinch);
-    // this.arkitController.onNodePan = (pan) => _onPanHandler(pan);
-    // this.arkitController.onNodeRotation =
-    //     (rotation) => _onRotationHandler(rotation);
+    this.arkitController.onNodePinch = (pinch) => _onPinchHandler(pinch);
+    this.arkitController.onNodePan = (pan) => _onPanHandler(pan);
+    this.arkitController.onNodeRotation =
+        (rotation) => _onRotationHandler(rotation);
     // addNode();
   }
 
   void onAnchorWasFound(ARKitAnchor anchor) {
     debugPrint(anchor.identifier);
 
-    if (anchor.identifier == '2D1E6C78-601E-54A5-FC37-2FE5A0340185') {
-      model = 'models.scnassets/Incline_bench_press_model.usdz';
-      arkitController.removeAnchor(model2);
-    } else if (anchor.identifier == '88A34468-C336-0652-FA6A-3504FF1F12F8') {
-      model = 'models.scnassets/Heavy_leg_press.usdz';
-      arkitController.removeAnchor(model1);
-    }
     setState(() {
       final node = ARKitReferenceNode(
-        url: model,
+        name: 'node1',
+        url: 'models.scnassets/Incline_bench_press_model.usdz',
+        isHidden: false,
+        position: vector.Vector3(-0.2, -0.3, -0.5),
+        eulerAngles: vector.Vector3(0.3, 0, 0),
+        light: ARKitLight(
+          type: ARKitLightType.directional,
+        ),
+      );
+      arkitController.add(node);
+
+      final node2 = ARKitReferenceNode(
+        name: 'node2',
+        url: 'models.scnassets/Heavy_leg_press.usdz',
+        isHidden: false,
         position: vector.Vector3(-0.2, -0.3, -0.5),
         eulerAngles: vector.Vector3(0.3, 0, 0),
         light: ARKitLight(
@@ -83,9 +91,15 @@ class _ArSceneState extends State<ArScene> {
         ),
       );
 
-      arkitController.add(node);
-      arkitController.remove(model1);
-      debugPrint(model);
+      if (anchor.identifier == '2D1E6C78-601E-54A5-FC37-2FE5A0340185') {
+        arkitController.add(node);
+        boxNode = node;
+        arkitController.remove('node2');
+      } else if (anchor.identifier == '88A34468-C336-0652-FA6A-3504FF1F12F8') {
+        arkitController.add(node2);
+        boxNode = node;
+        arkitController.remove('node1');
+      }
     });
 
     // final node2 = ARKitReferenceNode(
@@ -129,36 +143,36 @@ class _ArSceneState extends State<ArScene> {
     );
   }
 
-  // void _onPinchHandler(List<ARKitNodePinchResult> pinch) {
-  //   final pinchNode = pinch.firstWhereOrNull(
-  //     (e) => e.nodeName == boxNode?.name,
-  //   );
-  //   if (pinchNode != null) {
-  //     final scale = vector.Vector3.all(pinchNode.scale);
-  //     boxNode?.scale = scale;
-  //   }
-  // }
+  void _onPinchHandler(List<ARKitNodePinchResult> pinch) {
+    final pinchNode = pinch.firstWhereOrNull(
+      (e) => e.nodeName == boxNode?.name,
+    );
+    if (pinchNode != null) {
+      final scale = vector.Vector3.all(pinchNode.scale);
+      boxNode?.scale = scale;
+    }
+  }
 
-  // void _onPanHandler(List<ARKitNodePanResult> pan) {
-  //   final panNode = pan.firstWhereOrNull((e) => e.nodeName == boxNode?.name);
-  //   if (panNode != null) {
-  //     final old = boxNode?.eulerAngles;
-  //     final newAngleY = panNode.translation.x * math.pi / 180;
-  //     boxNode?.eulerAngles =
-  //         vector.Vector3(old?.x ?? 0, newAngleY, old?.z ?? 0);
-  //   }
-  // }
+  void _onPanHandler(List<ARKitNodePanResult> pan) {
+    final panNode = pan.firstWhereOrNull((e) => e.nodeName == boxNode?.name);
+    if (panNode != null) {
+      final old = boxNode?.eulerAngles;
+      final newAngleY = panNode.translation.x * math.pi / 180;
+      boxNode?.eulerAngles =
+          vector.Vector3(old?.x ?? 0, newAngleY, old?.z ?? 0);
+    }
+  }
 
-  // void _onRotationHandler(List<ARKitNodeRotationResult> rotation) {
-  //   final rotationNode = rotation.firstWhereOrNull(
-  //     (e) => e.nodeName == boxNode?.name,
-  //   );
-  //   if (rotationNode != null) {
-  //     final rotation = boxNode?.eulerAngles ??
-  //         vector.Vector3.zero() + vector.Vector3.all(rotationNode.rotation);
-  //     boxNode?.eulerAngles = rotation;
-  //   }
-  // }
+  void _onRotationHandler(List<ARKitNodeRotationResult> rotation) {
+    final rotationNode = rotation.firstWhereOrNull(
+      (e) => e.nodeName == boxNode?.name,
+    );
+    if (rotationNode != null) {
+      final rotation = boxNode?.eulerAngles ??
+          vector.Vector3.zero() + vector.Vector3.all(rotationNode.rotation);
+      boxNode?.eulerAngles = rotation;
+    }
+  }
 }
 
 

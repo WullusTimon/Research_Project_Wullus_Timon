@@ -124,7 +124,7 @@ class _MoreInfoState extends State<MoreInfo> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Text(
-                      '1. Place feet flat on the floor as you lean back slightly, so your back rests against the bench with a neutral spine.',
+                      '1. Lie on your back on a flat bench. Grip a barbell with hands slightly wider than shoulder width. The bar should be directly over the shoulders.',
                       style: TextStyle(
                         color: Color.fromARGB(255, 96, 96, 96),
                       ),
@@ -133,7 +133,7 @@ class _MoreInfoState extends State<MoreInfo> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Text(
-                      '2. Place feet flat on the floor as you lean back slightly, so your back rests against the bench with a neutral spine.',
+                      '2. Press your feet firmly into the ground and keep your hips on the bench throughout the entire movement.',
                       style: TextStyle(
                         color: Color.fromARGB(255, 96, 96, 96),
                       ),
@@ -142,7 +142,7 @@ class _MoreInfoState extends State<MoreInfo> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Text(
-                      '3. Press the weight upward over your eyes or slightly higher, with elbows extended to 45 degrees.',
+                      '3. Keep your core engaged and maintain a neutral spine position throughout the movement. Avoid arching your back.',
                       style: TextStyle(
                         color: Color.fromARGB(255, 96, 96, 96),
                       ),
@@ -151,7 +151,7 @@ class _MoreInfoState extends State<MoreInfo> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Text(
-                      '4. Place feet flat on the floor as you lean back slightly, so your back rests against the bench with a neutral spine.',
+                      '4. Slowly lift the bar or dumbbells off the rack, if using. Lower the bar to the chest, about nipple level, allowing elbows to bend out to the side, about 45 degrees away from the body.',
                       style: TextStyle(
                         color: Color.fromARGB(255, 96, 96, 96),
                       ),
@@ -160,7 +160,16 @@ class _MoreInfoState extends State<MoreInfo> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Text(
-                      '5. Repeat the press and perform around 5 reps or more. Keep in mind that reps depend on your goals and the weight. Someone using heavier weights may do fewer reps than someone using lighter weights.',
+                      '5. Stop lowering when your elbows are just below the bench. Press feet into the floor as you push the bar back up to return to starting position.',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 96, 96, 96),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Text(
+                      '5. Perform 5 to 10 reps, depending on weight used. Perform up to 3 sets.',
                       style: TextStyle(
                         color: Color.fromARGB(255, 96, 96, 96),
                       ),
