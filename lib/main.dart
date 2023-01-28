@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:research_project/ar-scene.dart';
+import 'package:research_project/ml/screens/ml-home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -98,3 +99,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// import 'package:camera/camera.dart';
+// import 'package:flutter/material.dart';
+// import 'package:research_project/ml/screens/ml-home.dart';
+
+// List<CameraDescription>? cameras;
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   cameras = await availableCameras();
+//   runApp(MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     home: MyMLHomePage(
+//       cameras!,
+//     ),
+//   ));
+// }
