@@ -97,7 +97,7 @@ class _ArSceneState extends State<ArScene> {
         arkitController.remove('node2');
       } else if (anchor.identifier == '88A34468-C336-0652-FA6A-3504FF1F12F8') {
         arkitController.add(node2);
-        boxNode = node;
+        boxNode = node2;
         arkitController.remove('node1');
       }
     });

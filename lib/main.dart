@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
               child: Text(
-                "don't know what to do? No problem!\nWith our new technologie you are able to do every exercise right.",
+                "Don't know what to do? No problem!\nWith our new technology you are able to do every exercise right.",
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 16,
